@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Perimeter Guard - Giam sat nhieu camera</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #0a0d12;
+    --panel: #12161d;
+    --panel-2: #171c25;
+    --border: #232a35;
+    --text: #dfe6ee;
+    --text-dim: #7c8898;
+    --amber: #d0983c;
+    --green: #4caf7d;
+    --red: #d84a4a;
+    --offline: #545e6b;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: radial-gradient(circle at 20% -10%, #131a24 0%, var(--bg) 55%);
+    color: var(--text);
+    font-family: 'Segoe UI', ui-monospace, Consolas, monospace;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 28px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #10141b 0%, rgba(16,20,27,0) 100%);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+  }
+  .brand-dot.live { animation: blink 1.4s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: 0.25; } }
+  .brand h1 { font-size: 15px; letter-spacing: 3px; margin: 0; font-weight: 600; color: var(--text); }
+  .brand span { font-size: 11px; color: var(--text-dim); letter-spacing: 2px; }
+  #clock { font-size: 13px; color: var(--text-dim); letter-spacing: 1px; }
+
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 2.4fr) minmax(280px, 1fr);
+    gap: 20px;
+    padding: 20px 28px 28px;
+    max-width: 1680px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .camera-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 14px;
+  }
+
+  .camera-tile {
+    position: relative;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--panel);
+    transition: border-color 200ms ease;
+  }
+  .camera-tile.watching { border-color: var(--amber); }
+  .camera-tile.alert { border-color: var(--red); }
+  .camera-tile.offline { border-color: var(--border); }
+
+  .tile-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 12px; border-bottom: 1px solid var(--border);
+    font-size: 12px; letter-spacing: 0.5px;
+  }
+  .tile-header .cam-name { color: var(--text); font-weight: 600; }
+  .tile-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .tile-header .cam-status { display: flex; align-items: center; gap: 6px; color: var(--text-dim); font-size: 11px; }
+
+  .tile-video-wrap {
+    position: relative; width: 100%; aspect-ratio: 16 / 9;
+    background: #000; display: flex; align-items: center; justify-content: center;
+  }
+  .tile-video-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  .tile-offline-overlay {
+    position: absolute; inset: 0; display: none;
+    flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    background: rgba(10, 13, 18, 0.88); color: var(--offline);
+  }
+  .tile-offline-overlay.show { display: flex; }
+  .tile-offline-overlay span { font-size: 11px; letter-spacing: 1.5px; }
+
+  .tile-ended-overlay {
+    position: absolute; inset: 0; display: none;
+    flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    background: rgba(10, 13, 18, 0.82); color: var(--text);
+  }
+  .tile-ended-overlay.show { display: flex; }
+  .tile-ended-overlay span { font-size: 11px; letter-spacing: 1.5px; color: var(--text-dim); }
+  .replay-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--amber); border-radius: 8px;
+    padding: 10px 18px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+    cursor: pointer; transition: background 150ms ease;
+  }
+  .replay-btn:hover { background: #232a35; }
+  .replay-btn svg { flex-shrink: 0; }
+
+  .side { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 20px; }
+
+  .status-card { padding: 22px; text-align: center; }
+  .status-icon { display: flex; justify-content: center; margin-bottom: 8px; }
+  .status-label { font-size: 16px; font-weight: 700; letter-spacing: 1px; }
+  .status-sub { font-size: 12px; color: var(--text-dim); margin-top: 6px; }
+  .status-card.secure .status-label { color: var(--green); }
+  .status-card.watching .status-label { color: var(--amber); }
+  .status-card.offline .status-label { color: var(--offline); }
+  .status-card.alert-state {
+    background: linear-gradient(180deg, #1f1113 0%, var(--panel) 70%);
+    border-color: var(--red);
+  }
+  .status-card.alert-state .status-label { color: var(--red); }
+
+  .stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--border);
+  }
+  .stat { background: var(--panel); padding: 14px 16px; }
+  .stat .k { font-size: 10px; color: var(--text-dim); letter-spacing: 1.5px; text-transform: uppercase; }
+  .stat .v { font-size: 20px; font-weight: 700; margin-top: 4px; color: var(--text); }
+  .stat .v.warn { color: var(--red); }
+
+  .alerts-card { display: flex; flex-direction: column; max-height: 360px; }
+  .alerts-header {
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .alerts-header h2 { font-size: 12px; margin: 0; letter-spacing: 2px; color: var(--text-dim); font-weight: 700; }
+  .alerts-header-right { display: flex; align-items: center; gap: 8px; }
+  .alerts-count {
+    font-size: 11px; background: var(--panel-2); color: var(--red);
+    border: 1px solid var(--border); border-radius: 20px; padding: 2px 10px;
+  }
+  .clear-btn {
+    display: flex; align-items: center; gap: 5px;
+    background: transparent; color: var(--text-dim);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 3px 9px; font-size: 11px; letter-spacing: 0.5px;
+    cursor: pointer; transition: color 150ms ease, border-color 150ms ease;
+  }
+  .clear-btn:hover { color: var(--red); border-color: var(--red); }
+  .clear-btn svg { flex-shrink: 0; }
+  .alerts-list { list-style: none; margin: 0; padding: 6px; overflow-y: auto; flex: 1; }
+  .alerts-list li {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 10px 12px; border-radius: 6px; font-size: 13px;
+    border-left: 3px solid var(--red); background: var(--panel-2);
+    margin-bottom: 6px;
+  }
+  .alerts-list li .row { display: flex; justify-content: space-between; align-items: center; }
+  .alerts-list li .t { color: var(--text); font-weight: 600; }
+  .alerts-list li .e { color: var(--text-dim); font-size: 11px; }
+  .alerts-list li .cam { color: var(--text-dim); font-size: 11px; }
+  .alerts-empty { padding: 30px 16px; text-align: center; color: var(--text-dim); font-size: 13px; }
+
+  footer {
+    text-align: center; font-size: 11px; color: var(--text-dim);
+    padding: 10px; letter-spacing: 1px;
+  }
+
+  @media (max-width: 1000px) {
+    main { grid-template-columns: 1fr; }
+    .side { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-dot live"></div>
+    <div>
+      <h1>PERIMETER GUARD</h1>
+      <span>Wall-climb intrusion detection - {{ cameras|length }} camera</span>
+    </div>
+  </div>
+  <div id="clock">--:--:--</div>
+</header>
+
+<main>
+  <section class="camera-grid" id="cameraGrid">
+    {% for cam in cameras %}
+    <div class="camera-tile" id="tile-{{ cam.id }}">
+      <div class="tile-header">
+        <span class="cam-name">{{ cam.name }}</span>
+        <span class="cam-status">
+          <span class="tile-dot" id="dot-{{ cam.id }}"></span>
+          <span id="label-{{ cam.id }}">--</span>
+        </span>
+      </div>
+      <div class="tile-video-wrap">
+        <img src="/video_feed/{{ cam.id }}" alt="{{ cam.name }}">
+        <div class="tile-offline-overlay" id="offline-{{ cam.id }}">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l20 20"/><path d="M9.5 5.5A9 9 0 0 1 21 12"/><path d="M3 12a9 9 0 0 1 3.3-6.95"/><circle cx="12" cy="12" r="1"/></svg>
+          <span>MAT KET NOI</span>
+        </div>
+        <div class="tile-ended-overlay" id="ended-{{ cam.id }}">
+          <span>VIDEO DA KET THUC</span>
+          <button class="replay-btn" data-cam-id="{{ cam.id }}" onclick="replayCamera('{{ cam.id }}')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            PHAT LAI
+          </button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section class="side">
+    <div class="card status-card secure" id="statusCard">
+      <div class="status-icon" id="statusIcon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 7.6-7 9-4-1.4-7-4.4-7-9V6l7-3z"/></svg>
+      </div>
+      <div class="status-label" id="statusLabel">SECURE</div>
+      <div class="status-sub" id="statusSub">Dang giam sat khu vuc</div>
+    </div>
+
+    <div class="card">
+      <div class="stats-grid">
+        <div class="stat"><div class="k">Camera Online</div><div class="v" id="statOnline">0/0</div></div>
+        <div class="stat"><div class="k">Dang Alert</div><div class="v warn" id="statActive">0</div></div>
+        <div class="stat"><div class="k">Total Alerts</div><div class="v warn" id="statTotal">0</div></div>
+        <div class="stat"><div class="k">First Alert</div><div class="v" id="statFirst">-</div></div>
+      </div>
+    </div>
+
+    <div class="card alerts-card">
+      <div class="alerts-header">
+        <h2>ALERT LOG</h2>
+        <div class="alerts-header-right">
+          <button class="clear-btn" id="clearAlertsBtn" onclick="clearAlerts()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/><path d="M19 6l-1 14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 6"/></svg>
+            XOA
+          </button>
+          <div class="alerts-count" id="alertsCount">0</div>
+        </div>
+      </div>
+      <ul class="alerts-list" id="alertsList">
+        <div class="alerts-empty">Chua co canh bao nao</div>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>Local inference only - video khong roi khoi thiet bi nay</footer>
+
+<script>
+let audioCtx = null;
+let lastTotalAlerts = 0;
+
+function beep() {
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = "square";
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.35);
+  } catch (e) { /* audio unavailable, ignore */ }
+}
+
+function tickClock() {
+  document.getElementById("clock").textContent = new Date().toLocaleTimeString("vi-VN");
+}
+
+function fmtUptime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return m > 0 ? `${m}m ${s}s` : `${s}s`;
+}
+
+const ICONS = {
+  shield: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 7.6-7 9-4-1.4-7-4.4-7-9V6l7-3z"/></svg>',
+  eye: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg>',
+  alert: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 21 19.5H3L12 3.5z"/><line x1="12" y1="9.5" x2="12" y2="14"/><circle cx="12" cy="16.8" r="0.6" fill="currentColor" stroke="none"/></svg>',
+  offline: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l20 20"/><path d="M9.5 5.5A9 9 0 0 1 21 12"/><path d="M3 12a9 9 0 0 1 3.3-6.95"/><circle cx="12" cy="12" r="1"/></svg>',
+};
+
+function replayCamera(camId) {
+  fetch(`/api/replay/${camId}`, { method: "POST" }).catch(() => { /* thu lai o lan poll sau */ });
+}
+
+async function clearAlerts() {
+  try {
+    await fetch("/api/alerts/clear", { method: "POST" });
+    lastTotalAlerts = 0;
+    poll();
+  } catch (e) { /* thu lai o lan poll sau */ }
+}
+
+function applyCameraTile(cam) {
+  const tile = document.getElementById(`tile-${cam.id}`);
+  const dot = document.getElementById(`dot-${cam.id}`);
+  const label = document.getElementById(`label-${cam.id}`);
+  const offline = document.getElementById(`offline-${cam.id}`);
+  const ended = document.getElementById(`ended-${cam.id}`);
+  if (!tile) return;
+
+  tile.classList.remove("watching", "alert", "offline");
+  offline.classList.remove("show");
+  ended.classList.toggle("show", !!cam.ended);
+
+  if (!cam.connected) {
+    tile.classList.add("offline");
+    offline.classList.add("show");
+    dot.style.background = "var(--offline)";
+    label.textContent = "OFFLINE";
+  } else if (cam.ended) {
+    dot.style.background = "var(--offline)";
+    label.textContent = "KET THUC";
+  } else if (cam.is_climb) {
+    tile.classList.add("alert");
+    dot.style.background = "var(--red)";
+    label.textContent = "ALERT";
+  } else if (cam.person_detected) {
+    tile.classList.add("watching");
+    dot.style.background = "var(--amber)";
+    label.textContent = "MONITORING";
+  } else {
+    dot.style.background = "var(--green)";
+    label.textContent = "SECURE";
+  }
+}
+
+function applyStatus(data) {
+  const statusCard = document.getElementById("statusCard");
+  const statusIcon = document.getElementById("statusIcon");
+  const statusLabel = document.getElementById("statusLabel");
+  const statusSub = document.getElementById("statusSub");
+
+  const cams = data.cameras || [];
+  cams.forEach(applyCameraTile);
+
+  const onlineCount = cams.filter(c => c.connected).length;
+  const activeAlerts = cams.filter(c => c.is_climb).length;
+  const firstAlerts = cams.map(c => c.first_alert_time).filter(v => v !== null);
+  const earliestAlert = firstAlerts.length ? Math.min(...firstAlerts) : null;
+
+  statusCard.classList.remove("secure", "watching", "alert-state", "offline");
+
+  if (activeAlerts > 0) {
+    statusCard.classList.add("alert-state");
+    statusIcon.innerHTML = ICONS.alert;
+    statusLabel.textContent = "CANH BAO XAM NHAP";
+    statusSub.textContent = `${activeAlerts} camera dang phat hien treo tuong`;
+  } else if (onlineCount === 0) {
+    statusCard.classList.add("offline");
+    statusIcon.innerHTML = ICONS.offline;
+    statusLabel.textContent = "MAT KET NOI";
+    statusSub.textContent = "Khong co camera nao dang hoat dong";
+  } else if (cams.some(c => c.person_detected)) {
+    statusCard.classList.add("watching");
+    statusIcon.innerHTML = ICONS.eye;
+    statusLabel.textContent = "DANG THEO DOI";
+    statusSub.textContent = "Phat hien nguoi trong khung hinh";
+  } else {
+    statusCard.classList.add("secure");
+    statusIcon.innerHTML = ICONS.shield;
+    statusLabel.textContent = "AN TOAN";
+    statusSub.textContent = "Dang giam sat khu vuc";
+  }
+
+  document.getElementById("statOnline").textContent = `${onlineCount}/${cams.length}`;
+  document.getElementById("statActive").textContent = activeAlerts;
+  document.getElementById("statTotal").textContent = data.total_alerts_all;
+  document.getElementById("statFirst").textContent = earliestAlert !== null ? `${earliestAlert}s` : "-";
+
+  if (data.total_alerts_all > lastTotalAlerts) {
+    beep();
+  }
+  lastTotalAlerts = data.total_alerts_all;
+}
+
+function applyAlerts(list) {
+  const ul = document.getElementById("alertsList");
+  document.getElementById("alertsCount").textContent = list.length;
+  if (list.length === 0) {
+    ul.innerHTML = '<div class="alerts-empty">Chua co canh bao nao</div>';
+    return;
+  }
+  const warnIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:6px"><path d="M12 3.5 21 19.5H3L12 3.5z"/><line x1="12" y1="9.5" x2="12" y2="14"/></svg>';
+  ul.innerHTML = list.map(a => `
+    <li>
+      <div class="row">
+        <span class="t">${warnIcon}Climb luc ${a.time}</span>
+        <span class="e">T+${a.elapsed}s</span>
+      </div>
+      <span class="cam">${a.cam_name}</span>
+    </li>
+  `).join("");
+}
+
+async function poll() {
+  try {
+    const [statusRes, alertsRes] = await Promise.all([
+      fetch("/api/status"), fetch("/api/alerts")
+    ]);
+    applyStatus(await statusRes.json());
+    applyAlerts(await alertsRes.json());
+  } catch (e) { /* server dang khoi dong, thu lai sau */ }
+}
+
+tickClock();
+setInterval(tickClock, 1000);
+poll();
+setInterval(poll, 1000);
+</script>
+</body>
+</html>

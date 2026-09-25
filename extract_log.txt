@@ -1,0 +1,785 @@
+Dang tai model YOLOv8l-pose ...
+=== Train/climb: 379 video ===
+  [1/379] OK 54_1.mp4 -> 62 frame, 5 chuoi
+  [2/379] OK 58_2.mp4 -> 87 frame, 10 chuoi
+  [3/379] OK 61.mp4 -> 51 frame, 3 chuoi
+  [4/379] OK 10_1.mp4 -> 55 frame, 4 chuoi
+  [5/379] OK 10_2.mp4 -> 74 frame, 7 chuoi
+  [6/379] BO QUA 10_3.mp4 (chi co 37 frame co pose < 40)
+  [7/379] OK 10_4.mp4 -> 49 frame, 2 chuoi
+  [8/379] BO QUA 10_5.mp4 (chi co 0 frame co pose < 40)
+  [9/379] OK 10_6.mp4 -> 69 frame, 6 chuoi
+  [10/379] OK 11_1.mp4 -> 301 frame, 53 chuoi
+  [11/379] OK 11_2.mp4 -> 374 frame, 67 chuoi
+  [12/379] OK 11_3.mp4 -> 306 frame, 54 chuoi
+  [13/379] OK 11_4.mp4 -> 379 frame, 68 chuoi
+  [14/379] OK 12_1.mp4 -> 194 frame, 31 chuoi
+  [15/379] OK 12_10.mp4 -> 239 frame, 40 chuoi
+  [16/379] OK 12_12.mp4 -> 54 frame, 3 chuoi
+  [17/379] OK 12_2.mp4 -> 152 frame, 23 chuoi
+  [18/379] OK 12_4.mp4 -> 183 frame, 29 chuoi
+  [19/379] OK 12_6.mp4 -> 186 frame, 30 chuoi
+  [20/379] OK 14_14.mp4 -> 45 frame, 2 chuoi
+  [21/379] OK 15_13.mp4 -> 84 frame, 9 chuoi
+  [22/379] OK 16_1.mp4 -> 167 frame, 26 chuoi
+  [23/379] OK 16_10.mp4 -> 91 frame, 11 chuoi
+  [24/379] OK 16_3.mp4 -> 161 frame, 25 chuoi
+  [25/379] OK 16_5.mp4 -> 126 frame, 18 chuoi
+  [26/379] OK 16_6.mp4 -> 107 frame, 14 chuoi
+  [27/379] OK 16_7.mp4 -> 108 frame, 14 chuoi
+  [28/379] OK 16_8.mp4 -> 81 frame, 9 chuoi
+  [29/379] OK 16_9.mp4 -> 126 frame, 18 chuoi
+  [30/379] OK 17_10.mp4 -> 47 frame, 2 chuoi
+  [31/379] OK 17_11.mp4 -> 47 frame, 2 chuoi
+  [32/379] OK 17_2.mp4 -> 224 frame, 37 chuoi
+  [33/379] OK 17_4.mp4 -> 152 frame, 23 chuoi
+  [34/379] OK 17_6.mp4 -> 135 frame, 20 chuoi
+  [35/379] OK 17_7.mp4 -> 163 frame, 25 chuoi
+  [36/379] OK 17_8.mp4 -> 198 frame, 32 chuoi
+  [37/379] OK 17_9.mp4 -> 185 frame, 30 chuoi
+  [38/379] OK 18_10.mp4 -> 123 frame, 17 chuoi
+  [39/379] OK 18_11.mp4 -> 122 frame, 17 chuoi
+  [40/379] OK 18_12.mp4 -> 214 frame, 35 chuoi
+  [41/379] OK 18_2.mp4 -> 91 frame, 11 chuoi
+  [42/379] OK 18_3.mp4 -> 121 frame, 17 chuoi
+  [43/379] OK 18_4.mp4 -> 70 frame, 7 chuoi
+  [44/379] OK 18_5.mp4 -> 80 frame, 9 chuoi
+  [45/379] OK 18_6.mp4 -> 69 frame, 6 chuoi
+  [46/379] OK 18_7.mp4 -> 71 frame, 7 chuoi
+  [47/379] OK 18_8.mp4 -> 121 frame, 17 chuoi
+  [48/379] OK 18_9.mp4 -> 91 frame, 11 chuoi
+  [49/379] OK 19_1.mp4 -> 76 frame, 8 chuoi
+  [50/379] OK 19_10.mp4 -> 69 frame, 6 chuoi
+  [51/379] OK 19_11.mp4 -> 99 frame, 12 chuoi
+  [52/379] OK 19_12.mp4 -> 65 frame, 6 chuoi
+  [53/379] OK 19_2.mp4 -> 57 frame, 4 chuoi
+  [54/379] OK 19_3.mp4 -> 53 frame, 3 chuoi
+  [55/379] OK 19_4.mp4 -> 70 frame, 7 chuoi
+  [56/379] OK 19_5.mp4 -> 69 frame, 6 chuoi
+  [57/379] OK 19_6.mp4 -> 51 frame, 3 chuoi
+  [58/379] OK 19_7.mp4 -> 100 frame, 13 chuoi
+  [59/379] OK 19_8.mp4 -> 108 frame, 14 chuoi
+  [60/379] OK 19_9.mp4 -> 127 frame, 18 chuoi
+  [61/379] OK 1_1.mp4 -> 88 frame, 10 chuoi
+  [62/379] OK 1_10.mp4 -> 65 frame, 6 chuoi
+  [63/379] OK 1_11.mp4 -> 94 frame, 11 chuoi
+  [64/379] OK 1_12.mp4 -> 77 frame, 8 chuoi
+  [65/379] OK 1_13.mp4 -> 72 frame, 7 chuoi
+  [66/379] OK 1_14.mp4 -> 71 frame, 7 chuoi
+  [67/379] OK 1_15.mp4 -> 115 frame, 16 chuoi
+  [68/379] OK 1_16.mp4 -> 64 frame, 5 chuoi
+  [69/379] BO QUA 1_17.mp4 (chi co 39 frame co pose < 40)
+  [70/379] OK 1_18.mp4 -> 64 frame, 5 chuoi
+  [71/379] OK 1_19.mp4 -> 45 frame, 2 chuoi
+  [72/379] OK 1_2.mp4 -> 120 frame, 17 chuoi
+  [73/379] OK 1_20.mp4 -> 61 frame, 5 chuoi
+  [74/379] BO QUA 1_21.mp4 (chi co 27 frame co pose < 40)
+  [75/379] OK 1_3.mp4 -> 90 frame, 11 chuoi
+  [76/379] OK 1_4.mp4 -> 118 frame, 16 chuoi
+  [77/379] OK 1_5.mp4 -> 84 frame, 9 chuoi
+  [78/379] OK 1_6.mp4 -> 55 frame, 4 chuoi
+  [79/379] OK 1_7.mp4 -> 93 frame, 11 chuoi
+  [80/379] OK 1_8.mp4 -> 81 frame, 9 chuoi
+  [81/379] OK 1_9.mp4 -> 88 frame, 10 chuoi
+  [82/379] OK 20_1.mp4 -> 75 frame, 8 chuoi
+  [83/379] OK 20_10.mp4 -> 74 frame, 7 chuoi
+  [84/379] OK 20_11.mp4 -> 107 frame, 14 chuoi
+  [85/379] OK 20_2.mp4 -> 115 frame, 16 chuoi
+  [86/379] OK 20_3.mp4 -> 130 frame, 19 chuoi
+  [87/379] OK 20_4.mp4 -> 90 frame, 11 chuoi
+  [88/379] OK 20_5.mp4 -> 161 frame, 25 chuoi
+  [89/379] OK 20_6.mp4 -> 68 frame, 6 chuoi
+  [90/379] OK 20_7.mp4 -> 104 frame, 13 chuoi
+  [91/379] OK 20_8.mp4 -> 60 frame, 5 chuoi
+  [92/379] OK 20_9.mp4 -> 85 frame, 10 chuoi
+  [93/379] OK 21_1.mp4 -> 110 frame, 15 chuoi
+  [94/379] OK 21_10.mp4 -> 94 frame, 11 chuoi
+  [95/379] OK 21_11.mp4 -> 83 frame, 9 chuoi
+  [96/379] OK 21_2.mp4 -> 166 frame, 26 chuoi
+  [97/379] OK 21_3.mp4 -> 138 frame, 20 chuoi
+  [98/379] OK 21_4.mp4 -> 128 frame, 18 chuoi
+  [99/379] OK 21_5.mp4 -> 79 frame, 8 chuoi
+  [100/379] OK 21_6.mp4 -> 106 frame, 14 chuoi
+  [101/379] BO QUA 21_7.mp4 (chi co 29 frame co pose < 40)
+  [102/379] OK 21_8.mp4 -> 124 frame, 17 chuoi
+  [103/379] OK 21_9.mp4 -> 51 frame, 3 chuoi
+  [104/379] OK 22_1.mp4 -> 144 frame, 21 chuoi
+  [105/379] OK 22_10.mp4 -> 114 frame, 15 chuoi
+  [106/379] OK 22_2.mp4 -> 98 frame, 12 chuoi
+  [107/379] OK 22_3.mp4 -> 71 frame, 7 chuoi
+  [108/379] OK 22_4.mp4 -> 112 frame, 15 chuoi
+  [109/379] OK 22_5.mp4 -> 130 frame, 19 chuoi
+  [110/379] OK 22_6.mp4 -> 82 frame, 9 chuoi
+  [111/379] OK 22_7.mp4 -> 100 frame, 13 chuoi
+  [112/379] OK 22_8.mp4 -> 102 frame, 13 chuoi
+  [113/379] OK 22_9.mp4 -> 119 frame, 16 chuoi
+  [114/379] BO QUA 23_1.mp4 (chi co 37 frame co pose < 40)
+  [115/379] OK 23_10.mp4 -> 69 frame, 6 chuoi
+  [116/379] OK 23_11.mp4 -> 98 frame, 12 chuoi
+  [117/379] OK 23_12.mp4 -> 64 frame, 5 chuoi
+  [118/379] OK 23_2.mp4 -> 101 frame, 13 chuoi
+  [119/379] OK 23_3.mp4 -> 80 frame, 9 chuoi
+  [120/379] OK 23_4.mp4 -> 114 frame, 15 chuoi
+  [121/379] OK 23_5.mp4 -> 65 frame, 6 chuoi
+  [122/379] OK 23_6.mp4 -> 40 frame, 1 chuoi
+  [123/379] OK 23_7.mp4 -> 124 frame, 17 chuoi
+  [124/379] OK 23_8.mp4 -> 94 frame, 11 chuoi
+  [125/379] OK 23_9.mp4 -> 122 frame, 17 chuoi
+  [126/379] OK 24_1.mp4 -> 103 frame, 13 chuoi
+  [127/379] BO QUA 24_10.mp4 (chi co 25 frame co pose < 40)
+  [128/379] OK 24_11.mp4 -> 71 frame, 7 chuoi
+  [129/379] BO QUA 24_12.mp4 (chi co 37 frame co pose < 40)
+  [130/379] OK 24_13.mp4 -> 162 frame, 25 chuoi
+  [131/379] OK 24_14.mp4 -> 104 frame, 13 chuoi
+  [132/379] OK 24_15.mp4 -> 120 frame, 17 chuoi
+  [133/379] OK 24_16.mp4 -> 91 frame, 11 chuoi
+  [134/379] OK 24_17.mp4 -> 61 frame, 5 chuoi
+  [135/379] OK 24_18.mp4 -> 130 frame, 19 chuoi
+  [136/379] OK 24_19.mp4 -> 157 frame, 24 chuoi
+  [137/379] OK 24_2.mp4 -> 61 frame, 5 chuoi
+  [138/379] OK 24_20.mp4 -> 146 frame, 22 chuoi
+  [139/379] OK 24_21.mp4 -> 117 frame, 16 chuoi
+  [140/379] OK 24_22.mp4 -> 109 frame, 14 chuoi
+  [141/379] OK 24_3.mp4 -> 73 frame, 7 chuoi
+  [142/379] OK 24_4.mp4 -> 85 frame, 10 chuoi
+  [143/379] OK 24_5.mp4 -> 66 frame, 6 chuoi
+  [144/379] OK 24_6.mp4 -> 72 frame, 7 chuoi
+  [145/379] OK 24_7.mp4 -> 73 frame, 7 chuoi
+  [146/379] OK 24_8.mp4 -> 100 frame, 13 chuoi
+  [147/379] OK 24_9.mp4 -> 57 frame, 4 chuoi
+  [148/379] OK 25_1.mp4 -> 159 frame, 24 chuoi
+  [149/379] OK 25_10.mp4 -> 92 frame, 11 chuoi
+  [150/379] OK 25_2.mp4 -> 42 frame, 1 chuoi
+  [151/379] OK 25_3.mp4 -> 176 frame, 28 chuoi
+  [152/379] OK 25_4.mp4 -> 99 frame, 12 chuoi
+  [153/379] OK 25_5.mp4 -> 176 frame, 28 chuoi
+  [154/379] OK 25_6.mp4 -> 70 frame, 7 chuoi
+  [155/379] OK 25_7.mp4 -> 140 frame, 21 chuoi
+  [156/379] OK 25_8.mp4 -> 98 frame, 12 chuoi
+  [157/379] OK 25_9.mp4 -> 116 frame, 16 chuoi
+  [158/379] BO QUA 29_3.mp4 (chi co 14 frame co pose < 40)
+  [159/379] BO QUA 29_4.mp4 (chi co 14 frame co pose < 40)
+  [160/379] BO QUA 29_5.mp4 (chi co 6 frame co pose < 40)
+  [161/379] BO QUA 29_6.mp4 (chi co 25 frame co pose < 40)
+  [162/379] OK 2_1.mp4 -> 136 frame, 20 chuoi
+  [163/379] OK 2_10.mp4 -> 121 frame, 17 chuoi
+  [164/379] OK 2_11.mp4 -> 109 frame, 14 chuoi
+  [165/379] OK 2_12.mp4 -> 113 frame, 15 chuoi
+  [166/379] OK 2_13.mp4 -> 100 frame, 13 chuoi
+  [167/379] OK 2_14.mp4 -> 110 frame, 15 chuoi
+  [168/379] OK 2_15.mp4 -> 112 frame, 15 chuoi
+  [169/379] OK 2_16.mp4 -> 87 frame, 10 chuoi
+  [170/379] OK 2_17.mp4 -> 123 frame, 17 chuoi
+  [171/379] OK 2_18.mp4 -> 90 frame, 11 chuoi
+  [172/379] OK 2_19.mp4 -> 84 frame, 9 chuoi
+  [173/379] OK 2_2.mp4 -> 114 frame, 15 chuoi
+  [174/379] OK 2_20.mp4 -> 107 frame, 14 chuoi
+  [175/379] OK 2_3.mp4 -> 64 frame, 5 chuoi
+  [176/379] OK 2_4.mp4 -> 75 frame, 8 chuoi
+  [177/379] OK 2_5.mp4 -> 110 frame, 15 chuoi
+  [178/379] OK 2_6.mp4 -> 109 frame, 14 chuoi
+  [179/379] OK 2_7.mp4 -> 59 frame, 4 chuoi
+  [180/379] OK 2_8.mp4 -> 81 frame, 9 chuoi
+  [181/379] OK 2_9.mp4 -> 87 frame, 10 chuoi
+  [182/379] BO QUA 30_1.mp4 (chi co 1 frame co pose < 40)
+  [183/379] BO QUA 30_2.mp4 (chi co 1 frame co pose < 40)
+  [184/379] OK 34_1.mp4 -> 87 frame, 10 chuoi
+  [185/379] OK 34_2.mp4 -> 78 frame, 8 chuoi
+  [186/379] OK 34_3.mp4 -> 77 frame, 8 chuoi
+  [187/379] OK 53_1.mp4 -> 109 frame, 14 chuoi
+  [188/379] OK 53_2.mp4 -> 63 frame, 5 chuoi
+  [189/379] OK 53_3.mp4 -> 99 frame, 12 chuoi
+  [190/379] OK 53_4.mp4 -> 125 frame, 18 chuoi
+  [191/379] OK 54_3.mp4 -> 115 frame, 16 chuoi
+  [192/379] OK 55.mp4 -> 63 frame, 5 chuoi
+  [193/379] OK 56.mp4 -> 124 frame, 17 chuoi
+  [194/379] OK 58_1.mp4 -> 86 frame, 10 chuoi
+  [195/379] OK 59.mp4 -> 110 frame, 15 chuoi
+  [196/379] OK 60.mp4 -> 53 frame, 3 chuoi
+  [197/379] OK 62.mp4 -> 123 frame, 17 chuoi
+  [198/379] OK 76.mp4 -> 149 frame, 22 chuoi
+  [199/379] OK 78.mp4 -> 73 frame, 7 chuoi
+  [200/379] BO QUA 79.mp4 (chi co 27 frame co pose < 40)
+  [201/379] OK 7_1.mp4 -> 103 frame, 13 chuoi
+  [202/379] OK 7_10.mp4 -> 128 frame, 18 chuoi
+  [203/379] OK 7_11.mp4 -> 82 frame, 9 chuoi
+  [204/379] OK 7_12.mp4 -> 56 frame, 4 chuoi
+  [205/379] OK 7_13.mp4 -> 86 frame, 10 chuoi
+  [206/379] OK 7_14.mp4 -> 78 frame, 8 chuoi
+  [207/379] OK 7_15.mp4 -> 114 frame, 15 chuoi
+  [208/379] OK 7_16.mp4 -> 82 frame, 9 chuoi
+  [209/379] OK 7_17.mp4 -> 86 frame, 10 chuoi
+  [210/379] OK 7_18.mp4 -> 89 frame, 10 chuoi
+  [211/379] OK 7_19.mp4 -> 80 frame, 9 chuoi
+  [212/379] OK 7_2.mp4 -> 77 frame, 8 chuoi
+  [213/379] OK 7_20.mp4 -> 76 frame, 8 chuoi
+  [214/379] OK 7_21.mp4 -> 42 frame, 1 chuoi
+  [215/379] BO QUA 7_22.mp4 (chi co 27 frame co pose < 40)
+  [216/379] OK 7_3.mp4 -> 56 frame, 4 chuoi
+  [217/379] OK 7_4.mp4 -> 92 frame, 11 chuoi
+  [218/379] OK 7_5.mp4 -> 96 frame, 12 chuoi
+  [219/379] OK 7_6.mp4 -> 75 frame, 8 chuoi
+  [220/379] OK 7_7.mp4 -> 62 frame, 5 chuoi
+  [221/379] OK 7_8.mp4 -> 105 frame, 14 chuoi
+  [222/379] OK 7_9.mp4 -> 95 frame, 12 chuoi
+  [223/379] OK 80.mp4 -> 110 frame, 15 chuoi
+  [224/379] OK 8_1.mp4 -> 89 frame, 10 chuoi
+  [225/379] OK 8_10.mp4 -> 66 frame, 6 chuoi
+  [226/379] OK 8_11.mp4 -> 92 frame, 11 chuoi
+  [227/379] OK 8_12.mp4 -> 78 frame, 8 chuoi
+  [228/379] OK 8_13.mp4 -> 92 frame, 11 chuoi
+  [229/379] OK 8_14.mp4 -> 77 frame, 8 chuoi
+  [230/379] OK 8_15.mp4 -> 78 frame, 8 chuoi
+  [231/379] OK 8_16.mp4 -> 64 frame, 5 chuoi
+  [232/379] OK 8_17.mp4 -> 84 frame, 9 chuoi
+  [233/379] OK 8_18.mp4 -> 49 frame, 2 chuoi
+  [234/379] OK 8_19.mp4 -> 83 frame, 9 chuoi
+  [235/379] OK 8_2.mp4 -> 66 frame, 6 chuoi
+  [236/379] OK 8_3.mp4 -> 97 frame, 12 chuoi
+  [237/379] OK 8_4.mp4 -> 79 frame, 8 chuoi
+  [238/379] OK 8_5.mp4 -> 88 frame, 10 chuoi
+  [239/379] OK 8_6.mp4 -> 55 frame, 4 chuoi
+  [240/379] OK 8_7.mp4 -> 77 frame, 8 chuoi
+  [241/379] OK 8_8.mp4 -> 65 frame, 6 chuoi
+  [242/379] OK 8_9.mp4 -> 51 frame, 3 chuoi
+  [243/379] OK 9_16.mp4 -> 177 frame, 28 chuoi
+  [244/379] OK 9_17.mp4 -> 177 frame, 28 chuoi
+  [245/379] OK 12_11.mp4 -> 152 frame, 23 chuoi
+  [246/379] OK 12_3.mp4 -> 242 frame, 41 chuoi
+  [247/379] OK 12_5.mp4 -> 190 frame, 31 chuoi
+  [248/379] OK 12_7.mp4 -> 243 frame, 41 chuoi
+  [249/379] OK 12_8.mp4 -> 215 frame, 36 chuoi
+  [250/379] OK 12_9.mp4 -> 270 frame, 47 chuoi
+  [251/379] OK 13_1.mp4 -> 426 frame, 78 chuoi
+  [252/379] OK 13_10.mp4 -> 327 frame, 58 chuoi
+  [253/379] OK 13_11.mp4 -> 403 frame, 73 chuoi
+  [254/379] OK 13_2.mp4 -> 363 frame, 65 chuoi
+  [255/379] OK 13_3.mp4 -> 448 frame, 82 chuoi
+  [256/379] OK 13_4.mp4 -> 339 frame, 60 chuoi
+  [257/379] OK 13_5.mp4 -> 559 frame, 104 chuoi
+  [258/379] OK 13_6.mp4 -> 236 frame, 40 chuoi
+  [259/379] OK 13_7.mp4 -> 399 frame, 72 chuoi
+  [260/379] OK 13_8.mp4 -> 304 frame, 53 chuoi
+  [261/379] OK 13_9.mp4 -> 404 frame, 73 chuoi
+  [262/379] OK 14_1.mp4 -> 145 frame, 22 chuoi
+  [263/379] OK 14_10.mp4 -> 148 frame, 22 chuoi
+  [264/379] OK 14_11.mp4 -> 94 frame, 11 chuoi
+  [265/379] OK 14_12.mp4 -> 69 frame, 6 chuoi
+  [266/379] BO QUA 14_13.mp4 (chi co 39 frame co pose < 40)
+  [267/379] OK 14_2.mp4 -> 97 frame, 12 chuoi
+  [268/379] OK 14_3.mp4 -> 237 frame, 40 chuoi
+  [269/379] OK 14_4.mp4 -> 109 frame, 14 chuoi
+  [270/379] OK 14_5.mp4 -> 231 frame, 39 chuoi
+  [271/379] OK 14_6.mp4 -> 108 frame, 14 chuoi
+  [272/379] OK 14_7.mp4 -> 188 frame, 30 chuoi
+  [273/379] OK 14_8.mp4 -> 124 frame, 17 chuoi
+  [274/379] OK 14_9.mp4 -> 171 frame, 27 chuoi
+  [275/379] OK 15_1.mp4 -> 170 frame, 27 chuoi
+  [276/379] OK 15_10.mp4 -> 178 frame, 28 chuoi
+  [277/379] OK 15_11.mp4 -> 151 frame, 23 chuoi
+  [278/379] OK 15_12.mp4 -> 97 frame, 12 chuoi
+  [279/379] OK 15_14.mp4 -> 173 frame, 27 chuoi
+  [280/379] OK 15_2.mp4 -> 192 frame, 31 chuoi
+  [281/379] OK 15_3.mp4 -> 230 frame, 39 chuoi
+  [282/379] OK 15_4.mp4 -> 216 frame, 36 chuoi
+  [283/379] OK 15_5.mp4 -> 190 frame, 31 chuoi
+  [284/379] OK 15_6.mp4 -> 226 frame, 38 chuoi
+  [285/379] OK 15_7.mp4 -> 249 frame, 42 chuoi
+  [286/379] OK 15_8.mp4 -> 153 frame, 23 chuoi
+  [287/379] OK 15_9.mp4 -> 220 frame, 37 chuoi
+  [288/379] OK 16_2.mp4 -> 80 frame, 9 chuoi
+  [289/379] OK 16_4.mp4 -> 109 frame, 14 chuoi
+  [290/379] OK 17_1.mp4 -> 215 frame, 36 chuoi
+  [291/379] OK 17_3.mp4 -> 224 frame, 37 chuoi
+  [292/379] OK 17_5.mp4 -> 192 frame, 31 chuoi
+  [293/379] OK 18_1.mp4 -> 124 frame, 17 chuoi
+  [294/379] OK 26_1.MP4 -> 211 frame, 35 chuoi
+  [295/379] OK 26_2.MP4 -> 194 frame, 31 chuoi
+  [296/379] OK 26_3.MP4 -> 148 frame, 22 chuoi
+  [297/379] BO QUA 26_4.MP4 (chi co 6 frame co pose < 40)
+  [298/379] BO QUA 26_5.MP4 (chi co 2 frame co pose < 40)
+  [299/379] BO QUA 26_6.MP4 (chi co 7 frame co pose < 40)
+  [300/379] OK 29_1.MP4 -> 44 frame, 1 chuoi
+  [301/379] OK 29_2.MP4 -> 40 frame, 1 chuoi
+  [302/379] BO QUA 29_7.mp4 (chi co 0 frame co pose < 40)
+  [303/379] OK 33_1.mp4 -> 51 frame, 3 chuoi
+  [304/379] OK 33_2.mp4 -> 55 frame, 4 chuoi
+  [305/379] OK 33_3.mp4 -> 42 frame, 1 chuoi
+  [306/379] OK 33_4.mp4 -> 45 frame, 2 chuoi
+  [307/379] OK 36_1.mp4 -> 110 frame, 15 chuoi
+  [308/379] OK 36_2.mp4 -> 76 frame, 8 chuoi
+  [309/379] OK 36_3.mp4 -> 76 frame, 8 chuoi
+  [310/379] OK 36_4.mp4 -> 92 frame, 11 chuoi
+  [311/379] OK 37_1.mp4 -> 73 frame, 7 chuoi
+  [312/379] OK 37_2.mp4 -> 80 frame, 9 chuoi
+  [313/379] OK 37_3.mp4 -> 80 frame, 9 chuoi
+  [314/379] OK 37_4.mp4 -> 83 frame, 9 chuoi
+  [315/379] OK 37_5.mp4 -> 68 frame, 6 chuoi
+  [316/379] OK 39_1.mp4 -> 98 frame, 12 chuoi
+  [317/379] OK 39_2.mp4 -> 83 frame, 9 chuoi
+  [318/379] OK 40_1.mp4 -> 46 frame, 2 chuoi
+  [319/379] OK 40_2.mp4 -> 106 frame, 14 chuoi
+  [320/379] OK 41_1.mp4 -> 53 frame, 3 chuoi
+  [321/379] OK 41_2.mp4 -> 66 frame, 6 chuoi
+  [322/379] OK 41_3.mp4 -> 53 frame, 3 chuoi
+  [323/379] OK 41_4.mp4 -> 83 frame, 9 chuoi
+  [324/379] OK 41_5.mp4 -> 60 frame, 5 chuoi
+  [325/379] OK 41_6.mp4 -> 63 frame, 5 chuoi
+  [326/379] OK 41_7.mp4 -> 80 frame, 9 chuoi
+  [327/379] OK 41_8.mp4 -> 75 frame, 8 chuoi
+  [328/379] OK 41_9.mp4 -> 79 frame, 8 chuoi
+  [329/379] OK 42_1.mp4 -> 48 frame, 2 chuoi
+  [330/379] OK 42_10.mp4 -> 69 frame, 6 chuoi
+  [331/379] OK 42_11.mp4 -> 64 frame, 5 chuoi
+  [332/379] OK 42_2.mp4 -> 54 frame, 3 chuoi
+  [333/379] OK 42_3.mp4 -> 55 frame, 4 chuoi
+  [334/379] OK 42_4.mp4 -> 83 frame, 9 chuoi
+  [335/379] OK 42_5.mp4 -> 65 frame, 6 chuoi
+  [336/379] OK 42_6.mp4 -> 61 frame, 5 chuoi
+  [337/379] OK 42_7.mp4 -> 120 frame, 17 chuoi
+  [338/379] OK 42_8.mp4 -> 133 frame, 19 chuoi
+  [339/379] OK 42_9.mp4 -> 57 frame, 4 chuoi
+  [340/379] OK 47_1.mp4 -> 162 frame, 25 chuoi
+  [341/379] OK 47_2.mp4 -> 297 frame, 52 chuoi
+  [342/379] OK 47_3.mp4 -> 125 frame, 18 chuoi
+  [343/379] BO QUA 47_4.mp4 (chi co 39 frame co pose < 40)
+  [344/379] OK 48_1.mp4 -> 42 frame, 1 chuoi
+  [345/379] BO QUA 48_2.mp4 (chi co 37 frame co pose < 40)
+  [346/379] OK 49_1.mp4 -> 65 frame, 6 chuoi
+  [347/379] OK 49_2.mp4 -> 88 frame, 10 chuoi
+  [348/379] OK 49_3.mp4 -> 83 frame, 9 chuoi
+  [349/379] OK 49_4.mp4 -> 46 frame, 2 chuoi
+  [350/379] OK 52_1.mp4 -> 207 frame, 34 chuoi
+  [351/379] OK 52_2.mp4 -> 73 frame, 7 chuoi
+  [352/379] OK 53_5.mp4 -> 380 frame, 69 chuoi
+  [353/379] OK 54_2.mp4 -> 364 frame, 65 chuoi
+  [354/379] OK 54_4.mp4 -> 316 frame, 56 chuoi
+  [355/379] OK 69.mp4 -> 64 frame, 5 chuoi
+  [356/379] OK 70.mp4 -> 80 frame, 9 chuoi
+  [357/379] OK 72.mp4 -> 241 frame, 41 chuoi
+  [358/379] OK 9_1.mp4 -> 136 frame, 20 chuoi
+  [359/379] OK 9_10.mp4 -> 56 frame, 4 chuoi
+  [360/379] BO QUA 9_11.mp4 (chi co 7 frame co pose < 40)
+  [361/379] BO QUA 9_12.mp4 (chi co 12 frame co pose < 40)
+  [362/379] BO QUA 9_13.mp4 (chi co 2 frame co pose < 40)
+  [363/379] BO QUA 9_14.mp4 (chi co 1 frame co pose < 40)
+  [364/379] BO QUA 9_15.mp4 (chi co 31 frame co pose < 40)
+  [365/379] OK 9_18.MP4 -> 281 frame, 49 chuoi
+  [366/379] OK 9_19.MP4 -> 216 frame, 36 chuoi
+  [367/379] OK 9_2.mp4 -> 152 frame, 23 chuoi
+  [368/379] OK 9_20.MP4 -> 235 frame, 40 chuoi
+  [369/379] OK 9_21.MP4 -> 132 frame, 19 chuoi
+  [370/379] OK 9_22.MP4 -> 139 frame, 20 chuoi
+  [371/379] OK 9_23.MP4 -> 107 frame, 14 chuoi
+  [372/379] OK 9_24.MP4 -> 272 frame, 47 chuoi
+  [373/379] OK 9_3.mp4 -> 77 frame, 8 chuoi
+  [374/379] OK 9_4.mp4 -> 147 frame, 22 chuoi
+  [375/379] OK 9_5.mp4 -> 230 frame, 39 chuoi
+  [376/379] OK 9_6.mp4 -> 180 frame, 29 chuoi
+  [377/379] BO QUA 9_7.mp4 (chi co 0 frame co pose < 40)
+  [378/379] BO QUA 9_8.mp4 (chi co 0 frame co pose < 40)
+  [379/379] OK 9_9.mp4 -> 179 frame, 28 chuoi
+  Da luu d:/Projects/CV/climb\project\train_climb_keypoints.npy shape=(5888, 40, 17, 2) (1088.9s)
+=== Train/no_climb: 158 video ===
+  [1/158] OK 10_10.mp4 -> 109 frame, 14 chuoi
+  [2/158] OK 10_12.mp4 -> 102 frame, 13 chuoi
+  [3/158] OK 10_13.mp4 -> 280 frame, 49 chuoi
+  [4/158] OK 10_14.mp4 -> 144 frame, 21 chuoi
+  [5/158] OK 10_15.mp4 -> 138 frame, 20 chuoi
+  [6/158] OK 10_16.mp4 -> 124 frame, 17 chuoi
+  [7/158] OK 10_18.mp4 -> 133 frame, 19 chuoi
+  [8/158] OK 10_19.mp4 -> 160 frame, 25 chuoi
+  [9/158] OK 10_20.mp4 -> 233 frame, 39 chuoi
+  [10/158] OK 10_21.mp4 -> 237 frame, 40 chuoi
+  [11/158] OK 10_22.mp4 -> 304 frame, 53 chuoi
+  [12/158] OK 10_23.mp4 -> 285 frame, 50 chuoi
+  [13/158] OK 10_25.mp4 -> 254 frame, 43 chuoi
+  [14/158] OK 10_26.mp4 -> 257 frame, 44 chuoi
+  [15/158] OK 10_27.mp4 -> 266 frame, 46 chuoi
+  [16/158] OK 10_28.mp4 -> 253 frame, 43 chuoi
+  [17/158] OK 10_29.mp4 -> 252 frame, 43 chuoi
+  [18/158] OK 10_3.mp4 -> 107 frame, 14 chuoi
+  [19/158] OK 10_31.mp4 -> 201 frame, 33 chuoi
+  [20/158] OK 10_32.mp4 -> 237 frame, 40 chuoi
+  [21/158] OK 10_33.mp4 -> 59 frame, 4 chuoi
+  [22/158] BO QUA 10_34.mp4 (chi co 0 frame co pose < 40)
+  [23/158] OK 10_36.mp4 -> 209 frame, 34 chuoi
+  [24/158] OK 10_37.mp4 -> 278 frame, 48 chuoi
+  [25/158] OK 10_38.mp4 -> 227 frame, 38 chuoi
+  [26/158] OK 10_4.mp4 -> 62 frame, 5 chuoi
+  [27/158] OK 10_41.mp4 -> 204 frame, 33 chuoi
+  [28/158] BO QUA 10_42.mp4 (chi co 0 frame co pose < 40)
+  [29/158] OK 10_6.mp4 -> 100 frame, 13 chuoi
+  [30/158] OK 10_7.mp4 -> 90 frame, 11 chuoi
+  [31/158] OK 11_10.mp4 -> 193 frame, 31 chuoi
+  [32/158] OK 11_11.mp4 -> 247 frame, 42 chuoi
+  [33/158] OK 11_12.mp4 -> 175 frame, 28 chuoi
+  [34/158] OK 11_13.mp4 -> 281 frame, 49 chuoi
+  [35/158] OK 11_14.mp4 -> 216 frame, 36 chuoi
+  [36/158] OK 11_15.mp4 -> 243 frame, 41 chuoi
+  [37/158] OK 11_16.mp4 -> 196 frame, 32 chuoi
+  [38/158] OK 11_18.mp4 -> 214 frame, 35 chuoi
+  [39/158] OK 11_2.mp4 -> 198 frame, 32 chuoi
+  [40/158] OK 11_4.mp4 -> 179 frame, 28 chuoi
+  [41/158] OK 11_5.mp4 -> 277 frame, 48 chuoi
+  [42/158] OK 11_6.mp4 -> 241 frame, 41 chuoi
+  [43/158] OK 11_7.mp4 -> 264 frame, 45 chuoi
+  [44/158] OK 11_8.mp4 -> 207 frame, 34 chuoi
+  [45/158] OK 11_9.mp4 -> 255 frame, 44 chuoi
+  [46/158] OK 12_1.mp4 -> 75 frame, 8 chuoi
+  [47/158] OK 12_10.mp4 -> 130 frame, 19 chuoi
+  [48/158] OK 12_11.mp4 -> 97 frame, 12 chuoi
+  [49/158] OK 12_12.mp4 -> 140 frame, 21 chuoi
+  [50/158] OK 12_13.mp4 -> 57 frame, 4 chuoi
+  [51/158] OK 12_14.mp4 -> 101 frame, 13 chuoi
+  [52/158] OK 12_15.mp4 -> 113 frame, 15 chuoi
+  [53/158] OK 12_16.mp4 -> 154 frame, 23 chuoi
+  [54/158] OK 12_17.mp4 -> 57 frame, 4 chuoi
+  [55/158] OK 12_18.mp4 -> 91 frame, 11 chuoi
+  [56/158] OK 12_19.mp4 -> 80 frame, 9 chuoi
+  [57/158] OK 12_2.mp4 -> 128 frame, 18 chuoi
+  [58/158] OK 12_20.mp4 -> 98 frame, 12 chuoi
+  [59/158] OK 12_21.mp4 -> 62 frame, 5 chuoi
+  [60/158] OK 12_3.mp4 -> 104 frame, 13 chuoi
+  [61/158] OK 12_4.mp4 -> 80 frame, 9 chuoi
+  [62/158] OK 12_5.mp4 -> 52 frame, 3 chuoi
+  [63/158] OK 12_6.mp4 -> 131 frame, 19 chuoi
+  [64/158] OK 12_7.mp4 -> 58 frame, 4 chuoi
+  [65/158] OK 12_8.mp4 -> 105 frame, 14 chuoi
+  [66/158] OK 12_9.mp4 -> 83 frame, 9 chuoi
+  [67/158] OK 13_1.mp4 -> 148 frame, 22 chuoi
+  [68/158] OK 13_11.mp4 -> 205 frame, 34 chuoi
+  [69/158] OK 13_12.mp4 -> 252 frame, 43 chuoi
+  [70/158] OK 13_13.mp4 -> 116 frame, 16 chuoi
+  [71/158] OK 13_14.mp4 -> 313 frame, 55 chuoi
+  [72/158] OK 13_15.mp4 -> 89 frame, 10 chuoi
+  [73/158] OK 13_16.mp4 -> 354 frame, 63 chuoi
+  [74/158] OK 13_17.mp4 -> 111 frame, 15 chuoi
+  [75/158] OK 13_18.mp4 -> 108 frame, 14 chuoi
+  [76/158] OK 13_19.mp4 -> 197 frame, 32 chuoi
+  [77/158] OK 13_2.mp4 -> 210 frame, 35 chuoi
+  [78/158] OK 13_20.mp4 -> 340 frame, 61 chuoi
+  [79/158] OK 13_21.mp4 -> 260 frame, 45 chuoi
+  [80/158] OK 13_22.mp4 -> 314 frame, 55 chuoi
+  [81/158] OK 13_23.mp4 -> 262 frame, 45 chuoi
+  [82/158] OK 13_24.mp4 -> 272 frame, 47 chuoi
+  [83/158] OK 13_25.mp4 -> 214 frame, 35 chuoi
+  [84/158] OK 13_26.mp4 -> 294 frame, 51 chuoi
+  [85/158] OK 13_27.mp4 -> 199 frame, 32 chuoi
+  [86/158] OK 13_28.mp4 -> 341 frame, 61 chuoi
+  [87/158] OK 13_29.mp4 -> 351 frame, 63 chuoi
+  [88/158] OK 13_3.mp4 -> 276 frame, 48 chuoi
+  [89/158] OK 13_30.mp4 -> 262 frame, 45 chuoi
+  [90/158] OK 13_31.mp4 -> 203 frame, 33 chuoi
+  [91/158] OK 13_32.mp4 -> 308 frame, 54 chuoi
+  [92/158] OK 13_33.mp4 -> 111 frame, 15 chuoi
+  [93/158] OK 13_34.mp4 -> 288 frame, 50 chuoi
+  [94/158] OK 13_35.mp4 -> 295 frame, 52 chuoi
+  [95/158] OK 13_36.mp4 -> 351 frame, 63 chuoi
+  [96/158] OK 13_37.mp4 -> 250 frame, 43 chuoi
+  [97/158] OK 13_38.mp4 -> 321 frame, 57 chuoi
+  [98/158] OK 13_39.mp4 -> 324 frame, 57 chuoi
+  [99/158] OK 13_4.mp4 -> 271 frame, 47 chuoi
+  [100/158] OK 13_40.mp4 -> 313 frame, 55 chuoi
+  [101/158] OK 13_41.mp4 -> 210 frame, 35 chuoi
+  [102/158] OK 13_5.mp4 -> 327 frame, 58 chuoi
+  [103/158] OK 13_6.mp4 -> 250 frame, 43 chuoi
+  [104/158] OK 13_7.mp4 -> 202 frame, 33 chuoi
+  [105/158] BO QUA 2_1.mp4 (chi co 25 frame co pose < 40)
+  [106/158] BO QUA 2_2.mp4 (chi co 0 frame co pose < 40)
+  [107/158] BO QUA 2_3.mp4 (chi co 34 frame co pose < 40)
+  [108/158] BO QUA 2_4.mp4 (chi co 0 frame co pose < 40)
+  [109/158] OK 3_1.mp4 -> 50 frame, 3 chuoi
+  [110/158] BO QUA 3_2.mp4 (chi co 21 frame co pose < 40)
+  [111/158] OK 3_3.mp4 -> 42 frame, 1 chuoi
+  [112/158] BO QUA 3_4.mp4 (chi co 22 frame co pose < 40)
+  [113/158] BO QUA 3_5.mp4 (chi co 23 frame co pose < 40)
+  [114/158] BO QUA 3_7.mp4 (chi co 36 frame co pose < 40)
+  [115/158] OK 9_1.mp4 -> 109 frame, 14 chuoi
+  [116/158] OK 9_10.mp4 -> 78 frame, 8 chuoi
+  [117/158] OK 9_17.mp4 -> 93 frame, 11 chuoi
+  [118/158] OK 9_7.mp4 -> 113 frame, 15 chuoi
+  [119/158] OK 10_1.mp4 -> 229 frame, 38 chuoi
+  [120/158] OK 10_11.mp4 -> 128 frame, 18 chuoi
+  [121/158] OK 10_17.mp4 -> 145 frame, 22 chuoi
+  [122/158] OK 10_2.mp4 -> 108 frame, 14 chuoi
+  [123/158] OK 10_24.mp4 -> 261 frame, 45 chuoi
+  [124/158] OK 10_30.mp4 -> 239 frame, 40 chuoi
+  [125/158] OK 10_35.mp4 -> 265 frame, 46 chuoi
+  [126/158] OK 10_39.mp4 -> 286 frame, 50 chuoi
+  [127/158] OK 10_40.mp4 -> 143 frame, 21 chuoi
+  [128/158] OK 10_5.mp4 -> 120 frame, 17 chuoi
+  [129/158] OK 10_8.mp4 -> 112 frame, 15 chuoi
+  [130/158] OK 10_9.mp4 -> 126 frame, 18 chuoi
+  [131/158] OK 11_1.mp4 -> 94 frame, 11 chuoi
+  [132/158] OK 11_17.mp4 -> 262 frame, 45 chuoi
+  [133/158] OK 11_3.mp4 -> 314 frame, 55 chuoi
+  [134/158] OK 13_10.mp4 -> 359 frame, 64 chuoi
+  [135/158] OK 13_42.mp4 -> 236 frame, 40 chuoi
+  [136/158] OK 13_8.mp4 -> 345 frame, 62 chuoi
+  [137/158] OK 13_9.mp4 -> 248 frame, 42 chuoi
+  [138/158] BO QUA 2_10.MP4 (chi co 0 frame co pose < 40)
+  [139/158] BO QUA 2_11.MP4 (chi co 32 frame co pose < 40)
+  [140/158] OK 2_5.MP4 -> 86 frame, 10 chuoi
+  [141/158] OK 2_6.MP4 -> 62 frame, 5 chuoi
+  [142/158] BO QUA 2_7.MP4 (chi co 1 frame co pose < 40)
+  [143/158] BO QUA 2_8.MP4 (chi co 31 frame co pose < 40)
+  [144/158] BO QUA 2_9.MP4 (chi co 8 frame co pose < 40)
+  [145/158] BO QUA 3_6.mp4 (chi co 28 frame co pose < 40)
+  [146/158] OK 9_11.mp4 -> 111 frame, 15 chuoi
+  [147/158] OK 9_12.mp4 -> 92 frame, 11 chuoi
+  [148/158] OK 9_13.mp4 -> 103 frame, 13 chuoi
+  [149/158] OK 9_14.mp4 -> 867 frame, 166 chuoi
+  [150/158] OK 9_15.mp4 -> 306 frame, 54 chuoi
+  [151/158] OK 9_16.mp4 -> 156 frame, 24 chuoi
+  [152/158] OK 9_2.mp4 -> 155 frame, 24 chuoi
+  [153/158] OK 9_3.mp4 -> 256 frame, 44 chuoi
+  [154/158] OK 9_4.mp4 -> 104 frame, 13 chuoi
+  [155/158] OK 9_5.mp4 -> 97 frame, 12 chuoi
+  [156/158] OK 9_6.mp4 -> 190 frame, 31 chuoi
+  [157/158] OK 9_8.mp4 -> 109 frame, 14 chuoi
+  [158/158] OK 9_9.mp4 -> 98 frame, 12 chuoi
+  Da luu d:/Projects/CV/climb\project\train_no_climb_keypoints.npy shape=(4448, 40, 17, 2) (798.9s)
+=== Valid/climb: 54 video ===
+  [1/54] OK 27_1.MP4 -> 103 frame, 13 chuoi
+  [2/54] OK 27_2.MP4 -> 57 frame, 4 chuoi
+  [3/54] OK 27_3.MP4 -> 84 frame, 9 chuoi
+  [4/54] OK 27_4.MP4 -> 59 frame, 4 chuoi
+  [5/54] OK 27_5.MP4 -> 115 frame, 16 chuoi
+  [6/54] OK 27_7.MP4 -> 156 frame, 24 chuoi
+  [7/54] BO QUA 28_1.mp4 (chi co 3 frame co pose < 40)
+  [8/54] BO QUA 28_2.mp4 (chi co 34 frame co pose < 40)
+  [9/54] OK 28_3.mp4 -> 68 frame, 6 chuoi
+  [10/54] OK 28_4.mp4 -> 103 frame, 13 chuoi
+  [11/54] BO QUA 28_5.mp4 (chi co 24 frame co pose < 40)
+  [12/54] OK 35_1.mp4 -> 79 frame, 8 chuoi
+  [13/54] OK 35_2.mp4 -> 81 frame, 9 chuoi
+  [14/54] OK 35_3.mp4 -> 87 frame, 10 chuoi
+  [15/54] OK 35_4.mp4 -> 99 frame, 12 chuoi
+  [16/54] OK 35_5.mp4 -> 92 frame, 11 chuoi
+  [17/54] OK 35_6.mp4 -> 95 frame, 12 chuoi
+  [18/54] OK 35_7.mp4 -> 86 frame, 10 chuoi
+  [19/54] OK 38_1.mp4 -> 83 frame, 9 chuoi
+  [20/54] OK 38_2.mp4 -> 79 frame, 8 chuoi
+  [21/54] OK 38_3.mp4 -> 95 frame, 12 chuoi
+  [22/54] OK 38_4.mp4 -> 98 frame, 12 chuoi
+  [23/54] OK 38_5.mp4 -> 87 frame, 10 chuoi
+  [24/54] OK 38_6.mp4 -> 86 frame, 10 chuoi
+  [25/54] OK 57.mp4 -> 132 frame, 19 chuoi
+  [26/54] OK 5_1.mp4 -> 99 frame, 12 chuoi
+  [27/54] OK 5_10.mp4 -> 258 frame, 44 chuoi
+  [28/54] OK 5_11.mp4 -> 199 frame, 32 chuoi
+  [29/54] OK 5_12.mp4 -> 173 frame, 27 chuoi
+  [30/54] OK 5_13.mp4 -> 129 frame, 18 chuoi
+  [31/54] OK 5_14.mp4 -> 170 frame, 27 chuoi
+  [32/54] OK 5_15.mp4 -> 212 frame, 35 chuoi
+  [33/54] OK 5_16.mp4 -> 128 frame, 18 chuoi
+  [34/54] OK 5_17.mp4 -> 207 frame, 34 chuoi
+  [35/54] OK 5_18.mp4 -> 130 frame, 19 chuoi
+  [36/54] OK 5_19.mp4 -> 174 frame, 27 chuoi
+  [37/54] OK 5_2.mp4 -> 172 frame, 27 chuoi
+  [38/54] OK 5_20.mp4 -> 126 frame, 18 chuoi
+  [39/54] OK 5_21.mp4 -> 205 frame, 34 chuoi
+  [40/54] OK 5_3.mp4 -> 90 frame, 11 chuoi
+  [41/54] OK 5_4.mp4 -> 174 frame, 27 chuoi
+  [42/54] OK 5_5.mp4 -> 115 frame, 16 chuoi
+  [43/54] OK 5_6.mp4 -> 115 frame, 16 chuoi
+  [44/54] OK 5_7.mp4 -> 124 frame, 17 chuoi
+  [45/54] OK 5_8.mp4 -> 154 frame, 23 chuoi
+  [46/54] OK 5_9.mp4 -> 139 frame, 20 chuoi
+  [47/54] OK 68.mp4 -> 409 frame, 74 chuoi
+  [48/54] OK 71.mp4 -> 91 frame, 11 chuoi
+  [49/54] OK 73.mp4 -> 123 frame, 17 chuoi
+  [50/54] OK 74.mp4 -> 196 frame, 32 chuoi
+  [51/54] OK 75_1.mp4 -> 79 frame, 8 chuoi
+  [52/54] OK 75_2.mp4 -> 53 frame, 3 chuoi
+  [53/54] OK 27_6.MP4 -> 131 frame, 19 chuoi
+  [54/54] OK 27_8.MP4 -> 176 frame, 28 chuoi
+  Da luu d:/Projects/CV/climb\project\val_climb_keypoints.npy shape=(935, 40, 17, 2) (166.3s)
+=== Valid/no_climb: 22 video ===
+  [1/22] OK 14_1.mp4 -> 75 frame, 8 chuoi
+  [2/22] OK 14_10.mp4 -> 75 frame, 8 chuoi
+  [3/22] OK 14_11.mp4 -> 66 frame, 6 chuoi
+  [4/22] OK 14_12.mp4 -> 71 frame, 7 chuoi
+  [5/22] OK 14_13.mp4 -> 66 frame, 6 chuoi
+  [6/22] OK 14_14.mp4 -> 62 frame, 5 chuoi
+  [7/22] OK 14_15.mp4 -> 76 frame, 8 chuoi
+  [8/22] OK 14_16.mp4 -> 82 frame, 9 chuoi
+  [9/22] OK 14_17.mp4 -> 76 frame, 8 chuoi
+  [10/22] OK 14_18.mp4 -> 91 frame, 11 chuoi
+  [11/22] OK 14_19.mp4 -> 68 frame, 6 chuoi
+  [12/22] OK 14_2.mp4 -> 83 frame, 9 chuoi
+  [13/22] OK 14_20.mp4 -> 81 frame, 9 chuoi
+  [14/22] OK 14_3.mp4 -> 79 frame, 8 chuoi
+  [15/22] OK 14_4.mp4 -> 69 frame, 6 chuoi
+  [16/22] OK 14_5.mp4 -> 75 frame, 8 chuoi
+  [17/22] OK 14_6.mp4 -> 85 frame, 10 chuoi
+  [18/22] OK 14_7.mp4 -> 81 frame, 9 chuoi
+  [19/22] OK 14_8.mp4 -> 65 frame, 6 chuoi
+  [20/22] OK 14_9.mp4 -> 68 frame, 6 chuoi
+  [21/22] BO QUA 1_1.mp4 (chi co 0 frame co pose < 40)
+  [22/22] OK 1_2.mp4 -> 66 frame, 6 chuoi
+  Da luu d:/Projects/CV/climb\project\val_no_climb_keypoints.npy shape=(159, 40, 17, 2) (37.3s)
+=== Test/climb: 108 video ===
+  [1/108] BO QUA 31_5.mp4 (chi co 19 frame co pose < 40)
+  [2/108] OK 32_1.mp4 -> 53 frame, 3 chuoi
+  [3/108] OK 32_2.mp4 -> 63 frame, 5 chuoi
+  [4/108] OK 32_4.mp4 -> 57 frame, 4 chuoi
+  [5/108] OK 46_1.mp4 -> 78 frame, 8 chuoi
+  [6/108] OK 46_2.mp4 -> 96 frame, 12 chuoi
+  [7/108] OK 46_3.mp4 -> 139 frame, 20 chuoi
+  [8/108] OK 46_4.mp4 -> 76 frame, 8 chuoi
+  [9/108] OK 46_5.mp4 -> 55 frame, 4 chuoi
+  [10/108] OK 46_6.mp4 -> 87 frame, 10 chuoi
+  [11/108] OK 46_7.mp4 -> 41 frame, 1 chuoi
+  [12/108] OK 63.mp4 -> 275 frame, 48 chuoi
+  [13/108] BO QUA 77_1.mp4 (chi co 35 frame co pose < 40)
+  [14/108] OK 77_2.mp4 -> 50 frame, 3 chuoi
+  [15/108] OK 77_3.mp4 -> 69 frame, 6 chuoi
+  [16/108] OK 31_1.mp4 -> 52 frame, 3 chuoi
+  [17/108] BO QUA 31_2.mp4 (chi co 31 frame co pose < 40)
+  [18/108] OK 31_3.mp4 -> 59 frame, 4 chuoi
+  [19/108] OK 31_4.mp4 -> 48 frame, 2 chuoi
+  [20/108] OK 32_3.mp4 -> 57 frame, 4 chuoi
+  [21/108] OK 3_1.mp4 -> 110 frame, 15 chuoi
+  [22/108] OK 3_10.mp4 -> 60 frame, 5 chuoi
+  [23/108] OK 3_11.mp4 -> 45 frame, 2 chuoi
+  [24/108] OK 3_12.mp4 -> 58 frame, 4 chuoi
+  [25/108] OK 3_13.mp4 -> 117 frame, 16 chuoi
+  [26/108] OK 3_14.mp4 -> 75 frame, 8 chuoi
+  [27/108] OK 3_15.mp4 -> 49 frame, 2 chuoi
+  [28/108] OK 3_16.mp4 -> 70 frame, 7 chuoi
+  [29/108] OK 3_17.mp4 -> 70 frame, 7 chuoi
+  [30/108] OK 3_18.mp4 -> 42 frame, 1 chuoi
+  [31/108] OK 3_19.mp4 -> 48 frame, 2 chuoi
+  [32/108] OK 3_2.mp4 -> 55 frame, 4 chuoi
+  [33/108] BO QUA 3_20.mp4 (chi co 32 frame co pose < 40)
+  [34/108] OK 3_3.mp4 -> 60 frame, 5 chuoi
+  [35/108] OK 3_4.mp4 -> 47 frame, 2 chuoi
+  [36/108] BO QUA 3_5.mp4 (chi co 33 frame co pose < 40)
+  [37/108] OK 3_6.mp4 -> 57 frame, 4 chuoi
+  [38/108] OK 3_7.mp4 -> 68 frame, 6 chuoi
+  [39/108] BO QUA 3_8.mp4 (chi co 39 frame co pose < 40)
+  [40/108] OK 3_9.mp4 -> 69 frame, 6 chuoi
+  [41/108] OK 43_1.mp4 -> 67 frame, 6 chuoi
+  [42/108] OK 43_2.mp4 -> 47 frame, 2 chuoi
+  [43/108] OK 43_3.mp4 -> 63 frame, 5 chuoi
+  [44/108] OK 43_4.mp4 -> 88 frame, 10 chuoi
+  [45/108] OK 43_5.mp4 -> 66 frame, 6 chuoi
+  [46/108] OK 44_1.mp4 -> 59 frame, 4 chuoi
+  [47/108] OK 44_2.mp4 -> 73 frame, 7 chuoi
+  [48/108] OK 45_1.mp4 -> 75 frame, 8 chuoi
+  [49/108] OK 45_2.mp4 -> 53 frame, 3 chuoi
+  [50/108] OK 45_3.mp4 -> 48 frame, 2 chuoi
+  [51/108] OK 4_1.mp4 -> 43 frame, 1 chuoi
+  [52/108] BO QUA 4_10.mp4 (chi co 38 frame co pose < 40)
+  [53/108] OK 4_11.mp4 -> 87 frame, 10 chuoi
+  [54/108] OK 4_12.mp4 -> 57 frame, 4 chuoi
+  [55/108] OK 4_13.mp4 -> 59 frame, 4 chuoi
+  [56/108] OK 4_14.mp4 -> 42 frame, 1 chuoi
+  [57/108] OK 4_15.mp4 -> 59 frame, 4 chuoi
+  [58/108] OK 4_16.mp4 -> 54 frame, 3 chuoi
+  [59/108] OK 4_17.mp4 -> 76 frame, 8 chuoi
+  [60/108] OK 4_18.mp4 -> 63 frame, 5 chuoi
+  [61/108] OK 4_19.mp4 -> 51 frame, 3 chuoi
+  [62/108] OK 4_2.mp4 -> 62 frame, 5 chuoi
+  [63/108] BO QUA 4_20.mp4 (chi co 38 frame co pose < 40)
+  [64/108] OK 4_21.mp4 -> 61 frame, 5 chuoi
+  [65/108] OK 4_22.mp4 -> 52 frame, 3 chuoi
+  [66/108] OK 4_23.mp4 -> 141 frame, 21 chuoi
+  [67/108] OK 4_3.mp4 -> 45 frame, 2 chuoi
+  [68/108] OK 4_4.mp4 -> 52 frame, 3 chuoi
+  [69/108] OK 4_5.mp4 -> 111 frame, 15 chuoi
+  [70/108] OK 4_6.mp4 -> 50 frame, 3 chuoi
+  [71/108] OK 4_7.mp4 -> 69 frame, 6 chuoi
+  [72/108] OK 4_8.mp4 -> 72 frame, 7 chuoi
+  [73/108] OK 4_9.mp4 -> 45 frame, 2 chuoi
+  [74/108] OK 50_1.mp4 -> 54 frame, 3 chuoi
+  [75/108] OK 50_2.mp4 -> 65 frame, 6 chuoi
+  [76/108] OK 50_3.mp4 -> 73 frame, 7 chuoi
+  [77/108] OK 50_4.mp4 -> 98 frame, 12 chuoi
+  [78/108] OK 50_5.mp4 -> 81 frame, 9 chuoi
+  [79/108] OK 51_1.mp4 -> 107 frame, 14 chuoi
+  [80/108] OK 51_2.mp4 -> 93 frame, 11 chuoi
+  [81/108] OK 51_3.mp4 -> 70 frame, 7 chuoi
+  [82/108] OK 51_4.mp4 -> 233 frame, 39 chuoi
+  [83/108] OK 51_5.mp4 -> 110 frame, 15 chuoi
+  [84/108] OK 65_1.mp4 -> 490 frame, 91 chuoi
+  [85/108] OK 65_2.mp4 -> 245 frame, 42 chuoi
+  [86/108] OK 65_3.mp4 -> 290 frame, 51 chuoi
+  [87/108] OK 66.mp4 -> 115 frame, 16 chuoi
+  [88/108] OK 67.mp4 -> 145 frame, 22 chuoi
+  [89/108] OK 6_1.mp4 -> 166 frame, 26 chuoi
+  [90/108] OK 6_10.mp4 -> 211 frame, 35 chuoi
+  [91/108] OK 6_11.mp4 -> 216 frame, 36 chuoi
+  [92/108] OK 6_12.mp4 -> 153 frame, 23 chuoi
+  [93/108] OK 6_13.mp4 -> 244 frame, 41 chuoi
+  [94/108] OK 6_14.mp4 -> 148 frame, 22 chuoi
+  [95/108] OK 6_15.mp4 -> 181 frame, 29 chuoi
+  [96/108] OK 6_16.mp4 -> 132 frame, 19 chuoi
+  [97/108] OK 6_17.mp4 -> 178 frame, 28 chuoi
+  [98/108] OK 6_18.mp4 -> 172 frame, 27 chuoi
+  [99/108] OK 6_19.mp4 -> 148 frame, 22 chuoi
+  [100/108] OK 6_2.mp4 -> 126 frame, 18 chuoi
+  [101/108] OK 6_3.mp4 -> 149 frame, 22 chuoi
+  [102/108] OK 6_4.mp4 -> 162 frame, 25 chuoi
+  [103/108] OK 6_5.mp4 -> 168 frame, 26 chuoi
+  [104/108] OK 6_6.mp4 -> 128 frame, 18 chuoi
+  [105/108] OK 6_7.mp4 -> 158 frame, 24 chuoi
+  [106/108] OK 6_8.mp4 -> 119 frame, 16 chuoi
+  [107/108] OK 6_9.mp4 -> 175 frame, 28 chuoi
+  [108/108] OK 64.MP4 -> 456 frame, 84 chuoi
+  Da luu d:/Projects/CV/climb\project\test_climb_keypoints.npy shape=(1323, 40, 17, 2) (270.3s)
+=== Test/no_climb: 43 video ===
+  [1/43] OK 4_1.mp4 -> 69 frame, 6 chuoi
+  [2/43] OK 4_10.mp4 -> 41 frame, 1 chuoi
+  [3/43] OK 4_11.MP4 -> 187 frame, 30 chuoi
+  [4/43] BO QUA 4_12.MP4 (chi co 5 frame co pose < 40)
+  [5/43] OK 4_13.MP4 -> 63 frame, 5 chuoi
+  [6/43] OK 4_14.MP4 -> 77 frame, 8 chuoi
+  [7/43] BO QUA 4_15.MP4 (chi co 0 frame co pose < 40)
+  [8/43] OK 4_16.MP4 -> 89 frame, 10 chuoi
+  [9/43] OK 4_17.MP4 -> 47 frame, 2 chuoi
+  [10/43] BO QUA 4_18.MP4 (chi co 0 frame co pose < 40)
+  [11/43] BO QUA 4_2.mp4 (chi co 0 frame co pose < 40)
+  [12/43] BO QUA 4_3.mp4 (chi co 0 frame co pose < 40)
+  [13/43] BO QUA 4_4.mp4 (chi co 37 frame co pose < 40)
+  [14/43] BO QUA 4_5.mp4 (chi co 0 frame co pose < 40)
+  [15/43] BO QUA 4_6.mp4 (chi co 0 frame co pose < 40)
+  [16/43] BO QUA 4_7.mp4 (chi co 33 frame co pose < 40)
+  [17/43] BO QUA 4_8.mp4 (chi co 0 frame co pose < 40)
+  [18/43] BO QUA 4_9.mp4 (chi co 39 frame co pose < 40)
+  [19/43] BO QUA 5_1.mp4 (chi co 35 frame co pose < 40)
+  [20/43] BO QUA 5_2.mp4 (chi co 0 frame co pose < 40)
+  [21/43] BO QUA 5_3.mp4 (chi co 0 frame co pose < 40)
+  [22/43] BO QUA 5_4.mp4 (chi co 0 frame co pose < 40)
+  [23/43] BO QUA 6_1.MP4 (chi co 25 frame co pose < 40)
+  [24/43] OK 6_2.MP4 -> 96 frame, 12 chuoi
+  [25/43] OK 6_3.MP4 -> 96 frame, 12 chuoi
+  [26/43] OK 7_1.MP4 -> 55 frame, 4 chuoi
+  [27/43] OK 7_2.MP4 -> 44 frame, 1 chuoi
+  [28/43] BO QUA 7_3.MP4 (chi co 30 frame co pose < 40)
+  [29/43] BO QUA 7_4.MP4 (chi co 0 frame co pose < 40)
+  [30/43] BO QUA 7_5.MP4 (chi co 30 frame co pose < 40)
+  [31/43] OK 7_6.MP4 -> 67 frame, 6 chuoi
+  [32/43] OK 8_1.MP4 -> 70 frame, 7 chuoi
+  [33/43] OK 8_10.MP4 -> 47 frame, 2 chuoi
+  [34/43] BO QUA 8_11.MP4 (chi co 15 frame co pose < 40)
+  [35/43] OK 8_12.MP4 -> 84 frame, 9 chuoi
+  [36/43] BO QUA 8_2.MP4 (chi co 0 frame co pose < 40)
+  [37/43] BO QUA 8_3.MP4 (chi co 12 frame co pose < 40)
+  [38/43] BO QUA 8_4.MP4 (chi co 8 frame co pose < 40)
+  [39/43] OK 8_5.MP4 -> 84 frame, 9 chuoi
+  [40/43] OK 8_6.MP4 -> 122 frame, 17 chuoi
+  [41/43] BO QUA 8_7.MP4 (chi co 32 frame co pose < 40)
+  [42/43] OK 8_8.MP4 -> 85 frame, 10 chuoi
+  [43/43] BO QUA 8_9.MP4 (chi co 17 frame co pose < 40)
+  Da luu d:/Projects/CV/climb\project\test_no_climb_keypoints.npy shape=(151, 40, 17, 2) (68.4s)
+
+=== TOM TAT ===
+Train/climb: 5888 chuoi, 1088.9s
+Train/no_climb: 4448 chuoi, 798.9s
+Valid/climb: 935 chuoi, 166.3s
+Valid/no_climb: 159 chuoi, 37.3s
+Test/climb: 1323 chuoi, 270.3s
+Test/no_climb: 151 chuoi, 68.4s

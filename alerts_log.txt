@@ -1,0 +1,5 @@
+2026-08-23 10:56:04 | ALERT climb detected | source=27_8.mp4 | t=2.86s
+2026-08-23 10:56:09 | ALERT climb detected | source=27_8.mp4 | t=7.87s
+2026-08-23 10:58:03 | ALERT climb detected | source=27_8.mp4 | t=2.42s
+2026-08-23 10:58:08 | ALERT climb detected | source=27_8.mp4 | t=7.45s
+2026-08-23 10:58:13 | ALERT climb detected | source=27_8.mp4 | t=12.45s
