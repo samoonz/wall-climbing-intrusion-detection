@@ -24,8 +24,11 @@ from scipy.signal import medfilt
 from ultralytics import YOLO
 
 from ddnet_model import Config, DDNetOriginal
+from pose_tracking import track_people
 
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
+TRACKER_PATH = os.path.join(BASE_PATH, "pose_bytetrack.yaml")
+TRACK_STATE_TTL_FRAMES = 30
 
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 YOLO_IMGSZ = 480
@@ -57,25 +60,12 @@ def get_cg(p: np.ndarray, config: Config, device: torch.device) -> np.ndarray:
     return norm_scale(np.stack(frames))
 
 
-def extract_person(result) -> tuple[np.ndarray | None, np.ndarray | None]:
-    if result.keypoints is None or len(result.keypoints.xyn) == 0 or len(result.keypoints.xyn[0]) == 0:
-        return None, None
-    kp = np.array(result.keypoints.xyn[0].tolist())
-    if kp.shape[0] < 17:
-        mean_kp = kp.mean(axis=0)
-        kp = np.vstack([kp, np.tile(mean_kp, (17 - kp.shape[0], 1))])
-    kp = kp[:17]
-
-    bbox = None
-    if result.boxes is not None and len(result.boxes.xyxy) > 0:
-        bbox = result.boxes.xyxy[0].cpu().numpy()
-    return kp, bbox
-
-
-def draw_bbox(frame: np.ndarray, bbox: np.ndarray, is_climb: bool) -> None:
+def draw_bbox(frame: np.ndarray, bbox: np.ndarray, is_climb: bool, track_id: int) -> None:
     x1, y1, x2, y2 = bbox.astype(int)
     color = (0, 0, 255) if is_climb else (0, 255, 0)
     cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+    label = f"ID {track_id} | {'CLIMB' if is_climb else 'NO CLIMB'}"
+    cv2.putText(frame, label, (x1, max(20, y1 - 8)), FONT, 0.55, color, 2)
 
 
 def draw_label(frame: np.ndarray, is_climb: bool, first_alert_time: float | None, fps: float) -> None:
@@ -138,7 +128,9 @@ def run_demo(
 
     source_name = "webcam" if isinstance(cap_source, int) else os.path.basename(source)
     is_file_source = isinstance(cap_source, str)
-    jps_queue: deque[np.ndarray] = deque(maxlen=config.frame_l)
+    track_buffers: dict[int, deque[np.ndarray]] = {}
+    track_last_seen: dict[int, int] = {}
+    track_climb: dict[int, bool] = {}
 
     video_fps = cap.get(cv2.CAP_PROP_FPS)
     if not video_fps or video_fps <= 1:
@@ -168,39 +160,65 @@ def run_demo(
                 break
             frame_idx += 1
 
-            results = pose_model(frame, stream=False, verbose=False, imgsz=YOLO_IMGSZ, quantize=16 if use_half else None)
-            keypoints = None
-            bbox = None
-            for r in results:
-                keypoints, bbox = extract_person(r)
-                if keypoints is not None:
-                    break
+            tracked_people = track_people(
+                pose_model,
+                frame,
+                TRACKER_PATH,
+                conf=0.25,
+                imgsz=YOLO_IMGSZ,
+                quantize=16 if use_half else None,
+            )
+            seen_ids = set()
 
-            if keypoints is not None:
-                jps_queue.append(keypoints)
+            for tracked in tracked_people:
+                track_id = tracked.track_id
+                seen_ids.add(track_id)
+                track_last_seen[track_id] = frame_idx
+                pose_buffer = track_buffers.setdefault(
+                    track_id, deque(maxlen=config.frame_l)
+                )
+                pose_buffer.append(tracked.keypoints_xyn)
 
-            if len(jps_queue) == config.frame_l and frame_idx % INFER_STRIDE == 0:
-                seq = zoom_sequence(np.array(jps_queue), config.frame_l, config.joint_n, config.joint_d)
-                cg = get_cg(seq, config, device)
+                if len(pose_buffer) == config.frame_l and frame_idx % INFER_STRIDE == 0:
+                    seq = zoom_sequence(
+                        np.array(pose_buffer),
+                        config.frame_l,
+                        config.joint_n,
+                        config.joint_d,
+                    )
+                    cg = get_cg(seq, config, device)
 
-                m_tensor = torch.from_numpy(cg).unsqueeze(0).float().to(device)
-                p_tensor = torch.from_numpy(np.expand_dims(seq, axis=0)).float().to(device)
+                    m_tensor = torch.from_numpy(cg).unsqueeze(0).float().to(device)
+                    p_tensor = torch.from_numpy(np.expand_dims(seq, axis=0)).float().to(device)
 
-                with torch.no_grad():
-                    outputs = model(m_tensor, p_tensor)
-                    is_climb = torch.argmax(outputs, dim=1).item() == 1
+                    with torch.no_grad():
+                        outputs = model(m_tensor, p_tensor)
+                        track_climb[track_id] = torch.argmax(outputs, dim=1).item() == 1
 
-                elapsed = time.time() - start_time
-                if is_climb:
-                    if first_alert_time is None:
-                        first_alert_time = elapsed
-                    if elapsed - last_alert_time >= alert_cooldown:
-                        log_alert(log_path, source_name, elapsed)
-                        play_alert_sound()
-                        last_alert_time = elapsed
+            for track_id in list(track_buffers):
+                if frame_idx - track_last_seen.get(track_id, frame_idx) > TRACK_STATE_TTL_FRAMES:
+                    track_buffers.pop(track_id, None)
+                    track_last_seen.pop(track_id, None)
+                    track_climb.pop(track_id, None)
 
-            if bbox is not None:
-                draw_bbox(frame, bbox, is_climb)
+            is_climb = any(track_climb.get(track_id, False) for track_id in seen_ids)
+
+            elapsed = time.time() - start_time
+            if is_climb:
+                if first_alert_time is None:
+                    first_alert_time = elapsed
+                if elapsed - last_alert_time >= alert_cooldown:
+                    log_alert(log_path, source_name, elapsed)
+                    play_alert_sound()
+                    last_alert_time = elapsed
+
+            for tracked in tracked_people:
+                draw_bbox(
+                    frame,
+                    tracked.bbox,
+                    track_climb.get(tracked.track_id, False),
+                    tracked.track_id,
+                )
 
             curr_time = time.time()
             fps = 1 / (curr_time - prev_time + 1e-8)
