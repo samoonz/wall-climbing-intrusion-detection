@@ -208,7 +208,7 @@ def camera_worker(cam_id: str, name: str, source, model_path: str) -> None:
             TRACKER_PATH,
             conf=0.25,
             imgsz=config.YOLO_IMGSZ,
-            quantize=16 if use_half else None,
+            half=use_half,
         )
         seen_ids = set()
 
@@ -289,7 +289,7 @@ def camera_worker(cam_id: str, name: str, source, model_path: str) -> None:
         with STATE_LOCK:
             STATES[cam_id]["fps"] = fps
 
-        draw_hud(frame, name, is_climb, keypoints is not None, fps)
+        draw_hud(frame, name, is_climb, person_detected, fps)
 
         ok, buffer = cv2.imencode(".jpg", frame, [int(cv2.IMWRITE_JPEG_QUALITY), 82])
         if ok:
