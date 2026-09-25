@@ -166,7 +166,7 @@ def run_demo(
                 TRACKER_PATH,
                 conf=0.25,
                 imgsz=YOLO_IMGSZ,
-                quantize=16 if use_half else None,
+                half=use_half,
             )
             seen_ids = set()
 
