@@ -28,8 +28,11 @@ import config
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_DIR)
 from ddnet_model import Config, DDNetOriginal  # noqa: E402
+from pose_tracking import track_people  # noqa: E402
 
 FONT = cv2.FONT_HERSHEY_SIMPLEX
+TRACKER_PATH = os.path.join(PROJECT_DIR, "pose_bytetrack.yaml")
+TRACK_STATE_TTL_FRAMES = 30
 STREAM_PUSH_INTERVAL = 1 / 20  # gioi han toc do day MJPEG toi trinh duyet, doc lap voi toc do suy luan
 
 app = Flask(__name__)
@@ -65,21 +68,6 @@ def get_cg(p: np.ndarray, cfg: Config, device: torch.device) -> np.ndarray:
         d_m = torch.cdist(pf, pf, p=2)
         frames.append(d_m[iu].cpu().numpy())
     return norm_scale(np.stack(frames))
-
-
-def extract_person(result) -> tuple[np.ndarray | None, np.ndarray | None]:
-    if result.keypoints is None or len(result.keypoints.xyn) == 0 or len(result.keypoints.xyn[0]) == 0:
-        return None, None
-    kp = np.array(result.keypoints.xyn[0].tolist())
-    if kp.shape[0] < 17:
-        mean_kp = kp.mean(axis=0)
-        kp = np.vstack([kp, np.tile(mean_kp, (17 - kp.shape[0], 1))])
-    kp = kp[:17]
-
-    bbox = None
-    if result.boxes is not None and len(result.boxes.xyxy) > 0:
-        bbox = result.boxes.xyxy[0].cpu().numpy()
-    return kp, bbox
 
 
 def draw_corner_box(frame: np.ndarray, bbox: np.ndarray, color: tuple[int, int, int]) -> None:
@@ -177,7 +165,9 @@ def camera_worker(cam_id: str, name: str, source, model_path: str) -> None:
     playback_clock_start = time.time()
     frame_idx = 0
 
-    jps_queue: deque[np.ndarray] = deque(maxlen=cfg.frame_l)
+    track_buffers: dict[int, deque[np.ndarray]] = {}
+    track_last_seen: dict[int, int] = {}
+    track_climb: dict[int, bool] = {}
     prev_time = time.time()
     last_alert_time = -config.ALERT_COOLDOWN_SEC
     is_climb = False
@@ -199,7 +189,9 @@ def camera_worker(cam_id: str, name: str, source, model_path: str) -> None:
                 cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
                 playback_clock_start = time.time()
                 frame_idx = 0
-                jps_queue.clear()
+                track_buffers.clear()
+                track_last_seen.clear()
+                track_climb.clear()
                 is_climb = False
                 last_alert_time = -config.ALERT_COOLDOWN_SEC
                 with STATE_LOCK:
@@ -210,48 +202,86 @@ def camera_worker(cam_id: str, name: str, source, model_path: str) -> None:
             break
         frame_idx += 1
 
-        results = pose_model(frame, stream=False, verbose=False, imgsz=config.YOLO_IMGSZ, quantize=16 if use_half else None)
-        keypoints, bbox = None, None
-        for r in results:
-            keypoints, bbox = extract_person(r)
-            if keypoints is not None:
-                break
+        tracked_people = track_people(
+            pose_model,
+            frame,
+            TRACKER_PATH,
+            conf=0.25,
+            imgsz=config.YOLO_IMGSZ,
+            quantize=16 if use_half else None,
+        )
+        seen_ids = set()
 
-        if keypoints is not None:
-            jps_queue.append(keypoints)
+        for tracked in tracked_people:
+            track_id = tracked.track_id
+            seen_ids.add(track_id)
+            track_last_seen[track_id] = frame_idx
+            pose_buffer = track_buffers.setdefault(
+                track_id, deque(maxlen=cfg.frame_l)
+            )
+            pose_buffer.append(tracked.keypoints_xyn)
 
-        if len(jps_queue) == cfg.frame_l and frame_idx % config.INFER_STRIDE == 0:
-            seq = zoom_sequence(np.array(jps_queue), cfg.frame_l, cfg.joint_n, cfg.joint_d)
-            cg = get_cg(seq, cfg, device)
-            m_t = torch.from_numpy(cg).unsqueeze(0).float().to(device)
-            p_t = torch.from_numpy(np.expand_dims(seq, axis=0)).float().to(device)
+            if len(pose_buffer) == cfg.frame_l and frame_idx % config.INFER_STRIDE == 0:
+                seq = zoom_sequence(
+                    np.array(pose_buffer),
+                    cfg.frame_l,
+                    cfg.joint_n,
+                    cfg.joint_d,
+                )
+                cg = get_cg(seq, cfg, device)
+                m_t = torch.from_numpy(cg).unsqueeze(0).float().to(device)
+                p_t = torch.from_numpy(np.expand_dims(seq, axis=0)).float().to(device)
 
-            with torch.no_grad():
-                outputs = model(m_t, p_t)
-                is_climb = torch.argmax(outputs, dim=1).item() == 1
+                with torch.no_grad():
+                    outputs = model(m_t, p_t)
+                    track_climb[track_id] = torch.argmax(outputs, dim=1).item() == 1
 
-            elapsed = time.time() - STATES[cam_id]["start_time"]
-            with STATE_LOCK:
-                if is_climb:
-                    if STATES[cam_id]["first_alert_time"] is None:
-                        STATES[cam_id]["first_alert_time"] = round(elapsed, 1)
-                    if elapsed - last_alert_time >= config.ALERT_COOLDOWN_SEC:
-                        GLOBAL_ALERTS.appendleft({
-                            "cam_id": cam_id,
-                            "cam_name": name,
-                            "time": datetime.now().strftime("%H:%M:%S"),
-                            "elapsed": round(elapsed, 1),
-                        })
-                        STATES[cam_id]["total_alerts"] += 1
-                        TOTAL_ALERTS_ALL += 1
-                        last_alert_time = elapsed
+        for track_id in list(track_buffers):
+            if frame_idx - track_last_seen.get(track_id, frame_idx) > TRACK_STATE_TTL_FRAMES:
+                track_buffers.pop(track_id, None)
+                track_last_seen.pop(track_id, None)
+                track_climb.pop(track_id, None)
+
+        is_climb = any(track_climb.get(track_id, False) for track_id in seen_ids)
+        person_detected = bool(tracked_people)
+
+        elapsed = time.time() - STATES[cam_id]["start_time"]
+        with STATE_LOCK:
+            if is_climb:
+                if STATES[cam_id]["first_alert_time"] is None:
+                    STATES[cam_id]["first_alert_time"] = round(elapsed, 1)
+                if elapsed - last_alert_time >= config.ALERT_COOLDOWN_SEC:
+                    GLOBAL_ALERTS.appendleft({
+                        "cam_id": cam_id,
+                        "cam_name": name,
+                        "time": datetime.now().strftime("%H:%M:%S"),
+                        "elapsed": round(elapsed, 1),
+                    })
+                    STATES[cam_id]["total_alerts"] += 1
+                    TOTAL_ALERTS_ALL += 1
+                    last_alert_time = elapsed
 
         with STATE_LOCK:
             STATES[cam_id]["is_climb"] = is_climb
-            STATES[cam_id]["person_detected"] = keypoints is not None
+            STATES[cam_id]["person_detected"] = person_detected
 
-        if bbox is not None:
-            draw_corner_box(frame, bbox, (0, 0, 255) if is_climb else (125, 175, 76))
+        for tracked in tracked_people:
+            tracked_is_climb = track_climb.get(tracked.track_id, False)
+            draw_corner_box(
+                frame,
+                tracked.bbox,
+                (0, 0, 255) if tracked_is_climb else (125, 175, 76),
+            )
+            x1, y1, _, _ = tracked.bbox.astype(int)
+            cv2.putText(
+                frame,
+                f"ID {tracked.track_id} | {'CLIMB' if tracked_is_climb else 'NO CLIMB'}",
+                (x1, max(55, y1 - 8)),
+                FONT,
+                0.5,
+                (0, 0, 255) if tracked_is_climb else (125, 175, 76),
+                2,
+            )
 
         curr_time = time.time()
         fps = 1 / (curr_time - prev_time + 1e-8)
